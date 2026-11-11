@@ -1,0 +1,17 @@
+# models: large files from their authors (see README for where to get them)
+modelos/
+
+# clinical data and outputs: never in the repository
+outputs/
+*.csv
+*.html
+notas/
+*.txt
+!requirements_*.txt
+
+# local, not code
+.ipynb_checkpoints/
+__pycache__/
+desktop.ini
+.vscode/
+*_antes_*.ipynb
