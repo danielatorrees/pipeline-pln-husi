@@ -47,12 +47,11 @@ Then run all the cells in order.
 
 - `pipeline_mama.ipynb`, `pipeline_pulmon.ipynb`, `pipeline_prostata.ipynb`: the three pipelines.
 - `requirements_mama.txt`, `requirements_pulmon_and_prostata.txt`: the packages of each environment.
-- `rush_rules_es.tsv`: Spanish sentence rules of PyRuSH (from medSpaCy 1.3.1), used by the three
-  notebooks to split the notes into sentences.
+- `rush_rules_es.tsv`: Spanish sentence rules of PyRuSH, used by the three notebooks to split the notes into sentences.
 
 ## Cómo correrlo (en español)
 
-1. Crear los dos entornos de la sección *Setup*: uno con Python 3.11 para mama (spaCy 3.5) y otro con Python 3.12
+1. Crear los dos entornos de la sección *Setup*: se recomienda uno con Python 3.11 para mama (spaCy 3.5) y otro con Python 3.12
    para pulmón y próstata.
 2. Abrir cada notebook con el kernel de su entorno.
 3. Poner los modelos en una carpeta `modelos/` junto a los notebooks, con las subcarpetas de la sección *Models*.
