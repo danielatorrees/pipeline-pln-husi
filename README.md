@@ -1,12 +1,12 @@
-# Cancer NLP pipelines
+# NLP pipelines
 
 Three Jupyter notebooks that extract clinical entities from oncology notes in Spanish with pretrained models.
 
-| Notebook | Model | Python | Requirements |
+| Notebook | Model 
 |---|---|---|---|
-| `pipeline_mama.ipynb` | `Alvaro8gb/es_breast_cancer_ehr_ner` (spaCy) | 3.11 | `requirements_mama.txt` (spaCy 3.5, as the model asks) |
-| `pipeline_pulmon.ipynb` | `solarte7/deepLungCancer`, BERT (converted to PyTorch) | 3.12 | `requirements_pulmon_and_prostata.txt` |
-| `pipeline_prostata.ipynb` | `ralzate/beto-prostata-ner` | 3.12 | `requirements_pulmon_and_prostata.txt` |
+| `pipeline_mama.ipynb` | `Alvaro8gb/es_breast_cancer_ehr_ner` (spaCy) 
+| `pipeline_pulmon.ipynb` | `solarte7/deepLungCancer`, BERT 
+| `pipeline_prostata.ipynb` | `ralzate/beto-prostata-ner` 
 
 ## Setup
 
@@ -19,7 +19,7 @@ python3.12 -m venv venv_pulmon_prostata
 venv_pulmon_prostata/bin/pip install -r requirements_pulmon_and_prostata.txt
 ```
 
-On Windows, use `Scripts\pip` instead of `bin/pip`. Open each notebook with the kernel of its environment.
+Open each notebook with the kernel of its environment.
 
 ## Models
 
@@ -31,8 +31,7 @@ The models are not in this repository. Put them in a `modelos/` folder next to t
 | `modelos/deepLungCancer-BERT` | The author's TensorFlow weights (Google Drive linked from the `solarte7/deepLungCancer` GitHub repository), converted to PyTorch |
 | `modelos/beto-prostata-ner` | Hugging Face `ralzate/beto-prostata-ner`|
 
-If they are in another folder, write its full path in `CARPETA_MODELOS`. Each notebook checks the SHA-256 of its
-model before using it.
+If they are in another folder, write its full path in `CARPETA_MODELOS`.
 
 ## Use
 
