@@ -2,11 +2,11 @@
 
 Three Jupyter notebooks that extract clinical entities from oncology notes in Spanish with pretrained models.
 
-| Notebook | Model 
-|---|---|---|---|
-| `pipeline_mama.ipynb` | `Alvaro8gb/es_breast_cancer_ehr_ner` (spaCy) 
-| `pipeline_pulmon.ipynb` | `solarte7/deepLungCancer`, BERT 
-| `pipeline_prostata.ipynb` | `ralzate/beto-prostata-ner` 
+| Notebook | Model |
+|---|---|
+| `pipeline_mama.ipynb` | `Alvaro8gb/es_breast_cancer_ehr_ner` (spaCy) |
+| `pipeline_pulmon.ipynb` | `solarte7/deepLungCancer` (BERT) |
+| `pipeline_prostata.ipynb` | `ralzate/beto-prostata-ner` (BETO) | 
 
 ## Setup
 
