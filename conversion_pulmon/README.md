@@ -38,3 +38,9 @@ Los pasos 4 y 5 no hacen falta para correr el pipeline: solo comprueban que la c
 - Paso 2: pesos_modelo.bin de 709 181 016 bytes; 201 de 201 tensores coinciden con el CRC32C del índice (0 errores); los 4 archivos de mBERT están.
 - Paso 3: sha256 de model.safetensors = fadf9bf51399823ec12d8f9111d63f0b38d4a31571e1b27bf3e012861ee51d76 (el que exige pipeline_pulmon.ipynb), y los otros 5 archivos idénticos a los de modelos/deepLungCancer-BERT.
 - Pasos 4 y 5: etiqueta igual en 616 de 616 piezas y 250 de 250 palabras; diferencia máxima de probabilidad 5,3 × 10⁻⁶; tokenización igual en 20 de 20 frases.
+
+## Archivos de apoyo
+
+- **indice_tf.py:** funciones que usan los pasos 1, 2 y 3 para leer el índice de los pesos de TensorFlow sin tener TensorFlow instalado y comprobar la descarga. Es necesario para armar el modelo.
+- **frases_validacion.json:** las 20 frases de la validación (14 del repositorio del autor y 6 inventadas). Lo usan los pasos 4 y 5.
+- **tf_salidas.npz:** las predicciones del modelo original en TensorFlow sobre esas frases, guardadas por el paso 4. Ya viene incluido, así que el paso 5 se puede correr sin hacer el paso 4.
