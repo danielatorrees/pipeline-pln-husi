@@ -1,61 +1,60 @@
-# NLP pipelines
+# PLN pipelines
 
-Three Jupyter notebooks that extract clinical entities from oncology notes in Spanish with pretrained models.
+Tres notebooks de Jupyter que extraen entidades clínicas de notas oncológicas en español con modelos preentrenados, validan el TNM y guardan un CSV y dos gráficas por paciente.
 
-| Notebook | Model |
+| Notebook | Modelo |
 |---|---|
-| `pipeline_mama.ipynb` | `Alvaro8gb/es_breast_cancer_ehr_ner` (spaCy) |
-| `pipeline_pulmon.ipynb` | `solarte7/deepLungCancer` (BERT) |
-| `pipeline_prostata.ipynb` | `ralzate/beto-prostata-ner` (BETO) | 
+| pipeline_mama.ipynb | Alvaro8gb/es_breast_cancer_ehr_ner (spaCy) |
+| pipeline_pulmon.ipynb | solarte7/deepLungCancer (BERT) |
+| pipeline_prostata.ipynb | ralzate/beto-prostata-ner (BETO) |
 
-## Setup
+## Entornos
 
-The breast pipeline needs its own environment, because its model asks for spaCy `>=3.5.0,<3.6.0`:
+Se necesitan dos entornos:
 
-```
-python3.11 -m venv venv_mama
-venv_mama/bin/pip install -r requirements_mama.txt
-python3.12 -m venv venv_pulmon_prostata
-venv_pulmon_prostata/bin/pip install -r requirements_pulmon_and_prostata.txt
-```
+- **Mama:** Python 3.11 con los paquetes de requirements_mama.txt. Su modelo pide spaCy 3.5 (>=3.5.0,<3.6.0), que no funciona con Python 3.12.
+- **Pulmón y próstata:** Python 3.12 con los paquetes de requirements_pulmon_and_prostata.txt.
 
-Open each notebook with the kernel of its environment.
+Cada entorno se crea con python -m venv y se instala con pip install -r y el archivo de requirements que le corresponde. Cada notebook se abre con el kernel de su entorno.
 
-## Models
+## Modelos
 
-The models are not in this repository. Put them in a `modelos/` folder next to the notebooks, one subfolder each:
+Los modelos no están en este repositorio. Van en una carpeta modelos, junto a los notebooks, con una subcarpeta por modelo:
 
-| Subfolder | Source |
+| Subcarpeta | De dónde sale |
 |---|---|
-| `modelos/es_breast_cancer_ehr_ner` | Hugging Face `Alvaro8gb/es_breast_cancer_ehr_ner`|
-| `modelos/deepLungCancer-BERT` | The author's TensorFlow weights (Google Drive linked from the `solarte7/deepLungCancer` GitHub repository), converted to PyTorch |
-| `modelos/beto-prostata-ner` | Hugging Face `ralzate/beto-prostata-ner`|
+| modelos/es_breast_cancer_ehr_ner | Hugging Face, Alvaro8gb/es_breast_cancer_ehr_ner |
+| modelos/deepLungCancer-BERT | Pesos de TensorFlow del autor (Google Drive enlazado en el repositorio de GitHub solarte7/deepLungCancer), convertidos a PyTorch con los scripts de conversion_pulmon |
+| modelos/beto-prostata-ner | Hugging Face, ralzate/beto-prostata-ner |
 
-If they are in another folder, write its full path in `CARPETA_MODELOS`.
+El modelo de pulmón no se puede descargar listo: se arma con los pasos 1 a 3 de conversion_pulmon y luego se copian sus 6 archivos a modelos/deepLungCancer-BERT (ver el README de esa carpeta).
 
-## Use
+Cada notebook comprueba la huella sha256 de su modelo antes de usarlo.
 
-In the configuration cell of each notebook, fill in:
+## Uso
 
-- `ENTRADA`: the folder of the patients of that cancer, one patient's folder, or one note.
-- `CARPETA_SALIDA_BASE`: a folder for the outputs.
-- `CARPETA_MODELOS`: only if the models are not in `modelos/` next to the notebooks.
+En la celda de configuración de cada notebook, llenar:
 
-Then run all the cells in order.
+- **ENTRADA:** la carpeta de los pacientes de ese cáncer (una subcarpeta por paciente), la carpeta de un paciente o una nota .txt.
+- **CARPETA_SALIDA_BASE:** una carpeta local donde se guardan las salidas.
+- **CARPETA_MODELOS:** solo si los modelos no están en la carpeta modelos junto a los notebooks. En ese caso, la ruta completa de la carpeta modelos, sin el nombre del modelo.
 
-## Contents
+Luego, correr todas las celdas en orden.
 
-- `pipeline_mama.ipynb`, `pipeline_pulmon.ipynb`, `pipeline_prostata.ipynb`: the three pipelines.
-- `requirements_mama.txt`, `requirements_pulmon_and_prostata.txt`: the packages of each environment.
-- `rush_rules_es.tsv`: Spanish sentence rules of PyRuSH, used by the three notebooks to split the notes into sentences.
+## Salidas
 
-## Cómo correrlo (en español)
+Cada corrida guarda en la carpeta de salida:
 
-1. Crear los dos entornos de la sección *Setup*: se recomienda uno con Python 3.11 para mama (spaCy 3.5) y otro con Python 3.12
-   para pulmón y próstata.
-2. Abrir cada notebook con el kernel de su entorno.
-3. Poner los modelos en una carpeta `modelos/` junto a los notebooks, con las subcarpetas de la sección *Models*.
-   Si están en otra carpeta, escribir su ruta completa en `CARPETA_MODELOS`.
-4. En la celda de configuración, llenar `ENTRADA` (la carpeta de los pacientes de ese cáncer, la de un paciente o
-   una nota `.txt`) y `CARPETA_SALIDA_BASE` (la carpeta donde quedan el CSV y las gráficas).
-5. Correr todas las celdas en orden. La salida es un CSV con las entidades y una gráfica por paciente.
+- **El CSV de extracciones:** una fila por entidad, con el paciente, la nota, su tipo y su fecha, la etiqueta, el texto extraído, su posición en la nota, el texto que la rodea y la validación del TNM.
+- **Entidades resaltadas:** una página HTML por paciente, con todas sus notas y las entidades resaltadas, un color por etiqueta.
+- **Línea de tiempo:** una imagen PNG por paciente, con una fila por etiqueta y los valores de cada nota en el tiempo.
+- **Registros:** registro_corridas.csv, con los conteos de cada corrida, y registro_versiones.csv, con la huella del modelo y las versiones usadas.
+
+El CSV y las gráficas traen texto de las notas: deben quedarse en el equipo o servidor donde se corre el pipeline.
+
+## Contenido
+
+- **pipeline_mama.ipynb, pipeline_pulmon.ipynb, pipeline_prostata.ipynb:** los tres pipelines.
+- **requirements_mama.txt, requirements_pulmon_and_prostata.txt:** los paquetes de cada entorno.
+- **rush_rules_es.tsv:** las reglas en español de PyRuSH, que usan los tres notebooks para dividir las notas en oraciones. Es una copia sin cambios de resources/es/rush_rules.tsv de medSpaCy 1.3.1 (© 2016 Department of Biomedical Informatics, University of Utah, licencia Apache 2.0).
+- **conversion_pulmon:** los scripts que arman el modelo de pulmón a partir de los pesos del autor y lo validan.
