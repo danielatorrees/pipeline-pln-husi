@@ -1,7 +1,7 @@
 """Step 5 (main environment: Python 3.12, transformers 4.49, PyTorch). Run the CONVERTED model on exactly the same ids
 as step 4 and compare with TensorFlow: largest probability difference, most likely label per piece and per word.
 Also compares the pieces of the fast tokenizer used by the pipeline with those of the author's tokenizer. No internet.
-Usage: python 5_validar_pt_convertido.py [converted model folder]   (default: ~/.cache/huggingface/modelos/deepLungCancer-BERT/hf)"""
+Usage: python 5_validar_pt_convertido.py <converted model folder>   (the folder given to step 3)"""
 import json
 import os
 import sys
@@ -15,7 +15,9 @@ import torch
 from transformers import AutoModelForTokenClassification, AutoTokenizer
 
 AQUI = Path(__file__).parent
-HF = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.home() / ".cache" / "huggingface" / "modelos" / "deepLungCancer-BERT" / "hf"
+if len(sys.argv) != 2:
+    sys.exit(__doc__)
+HF = Path(sys.argv[1])
 FRASES = json.loads((AQUI / "frases_validacion.json").read_text(encoding="utf-8"))
 if not (AQUI / "tf_salidas.npz").exists():
     sys.exit("Falta tf_salidas.npz: corre antes 4_validar_tf_original.py con el entorno tf24-pulmon")
