@@ -23,12 +23,17 @@ Se usan los pesos del autor y frases de ejemplo (frases_validacion.json: 14 del 
 
 Los pasos 1 y 2 guardan lo que descargan en la carpeta de trabajo ~/.cache/huggingface/modelos/deepLungCancer-BERT, fuera de OneDrive.
 
-Para rehacer el modelo del pipeline desde cero:
+## Para correr el pipeline de pulmón
 
-1. Correr los pasos 1 y 2.
-2. Correr el paso 3 con una carpeta nueva y vacía, donde se guarda el modelo convertido. Por ejemplo: python 3_convertir_a_pytorch.py modelo_convertido
-3. Correr el paso 4 y luego el paso 5 con esa misma carpeta. Por ejemplo: python 5_validar_pt_convertido.py modelo_convertido
-4. Copiar los 6 archivos de esa carpeta a modelos/deepLungCancer-BERT, junto a los notebooks. El notebook comprueba que model.safetensors tenga el sha256 de referencia.
+**Basta con los pasos 1 a 3**, en el entorno principal y con conexión a internet:
+
+1. python 1_leer_indice.py
+2. python 2_descarga_parcial.py
+3. python 3_convertir_a_pytorch.py modelo_convertido (modelo_convertido es una carpeta nueva y vacía, donde se guarda el modelo). Al terminar, debe imprimir que el sha256 es igual a la referencia.
+
+Después, copiar los 6 archivos de esa carpeta a modelos/deepLungCancer-BERT, junto a los notebooks, y correr pipeline_pulmon.ipynb. El notebook vuelve a comprobar que model.safetensors tenga el sha256 de referencia antes de usarlo.
+
+**Los pasos 4 y 5 no hacen falta para correr el pipeline:** solo comprueban que la conversión es correcta, comparando el modelo convertido con el original en TensorFlow. El paso 5 se corre con la carpeta del paso 3 (python 5_validar_pt_convertido.py modelo_convertido) y usa tf_salidas.npz, que ya trae las salidas del original. El paso 4 solo se necesita para volver a generar ese archivo, en el entorno tf24-pulmon.
 
 ## Resultado esperado
 
