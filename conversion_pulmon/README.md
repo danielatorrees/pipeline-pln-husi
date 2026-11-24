@@ -2,7 +2,7 @@
 
 Scripts que reconstruyen el BERT de solarte7/deepLungCancer a partir de sus pesos de TensorFlow en Google Drive, lo convierten a PyTorch y lo validan contra el modelo original en TensorFlow 2.4.1. El resultado es la carpeta del modelo que usa pipeline_pulmon.ipynb: modelos/deepLungCancer-BERT, junto a los notebooks.
 
-**Por qué hace falta.** El repositorio del autor da instrucciones para cargar el modelo con tf.saved_model.load, pero la carpeta de Google Drive solo tiene los pesos (variables/), no el archivo con la estructura de la red (saved_model.pb), así que esas instrucciones no funcionan con lo publicado. Por eso la red se arma con la función create_model() del autor (BERT/BERT-training.ipynb) y se le cargan los pesos originales.
+**Por qué hace falta.** El repositorio del autor da instrucciones para cargar el modelo con tf.saved_model.load, pero la carpeta de Google Drive solo tiene los pesos (variables/), no el archivo con la estructura de la red, así que esas instrucciones no funcionan con lo publicado. Por eso la red se arma con la función create_model() del autor (BERT/BERT-training.ipynb) y se le cargan los pesos originales.
 
 Se usan los pesos del autor y frases de ejemplo (frases_validacion.json: 14 del repositorio y 6 inventadas).
 
