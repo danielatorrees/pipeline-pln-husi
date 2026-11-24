@@ -1,6 +1,6 @@
 # PLN pipelines
 
-Tres notebooks de Jupyter que extraen entidades clínicas de notas oncológicas en español con modelos preentrenados, validan el TNM y guardan un CSV y dos gráficas por paciente.
+Tres notebooks de Jupyter que extraen entidades clínicas de notas clínicas en español con modelos preentrenados, validan el TNM y guardan un CSV y dos gráficas por paciente.
 
 | Notebook | Modelo |
 |---|---|
@@ -12,14 +12,14 @@ Tres notebooks de Jupyter que extraen entidades clínicas de notas oncológicas 
 
 Se necesitan dos entornos:
 
-- **Mama:** Python 3.11 con los paquetes de requirements_mama.txt. Su modelo pide spaCy 3.5 (>=3.5.0,<3.6.0), que no funciona con Python 3.12.
+- **Mama:** Python 3.11 con los paquetes de requirements_mama.txt. Su modelo pide spaCy 3.5 (>=3.5.0,<3.6.0).
 - **Pulmón y próstata:** Python 3.12 con los paquetes de requirements_pulmon_and_prostata.txt.
 
 Cada entorno se crea con python -m venv y se instala con pip install -r y el archivo de requirements que le corresponde. Cada notebook se abre con el kernel de su entorno.
 
 ## Modelos
 
-Los modelos no están en este repositorio. Van en una carpeta modelos, junto a los notebooks, con una subcarpeta por modelo:
+Los modelos no están en este repositorio. Deben descargarse y poner en una carpeta (por ejemplo carpeta "modelos"), junto a los notebooks, con una subcarpeta por modelo:
 
 | Subcarpeta | De dónde sale |
 |---|---|
@@ -27,9 +27,7 @@ Los modelos no están en este repositorio. Van en una carpeta modelos, junto a l
 | modelos/deepLungCancer-BERT | Pesos de TensorFlow del autor (Google Drive enlazado en el repositorio de GitHub solarte7/deepLungCancer), convertidos a PyTorch con los scripts de conversion_pulmon |
 | modelos/beto-prostata-ner | Hugging Face, ralzate/beto-prostata-ner |
 
-El modelo de pulmón no se puede descargar listo: se arma con los pasos 1 a 3 de conversion_pulmon y luego se copian sus 6 archivos a modelos/deepLungCancer-BERT (ver el README de esa carpeta).
-
-Cada notebook comprueba la huella sha256 de su modelo antes de usarlo.
+Nota: El modelo de pulmón no se puede descargar listo, se arma con los pasos 1 a 3 de conversion_pulmon y luego se deben copiar sus 6 archivos a modelos/deepLungCancer-BERT (ver el README de esa carpeta).
 
 ## Uso
 
@@ -49,8 +47,6 @@ Cada corrida guarda en la carpeta de salida:
 - **Entidades resaltadas:** una página HTML por paciente, con todas sus notas y las entidades resaltadas, un color por etiqueta.
 - **Línea de tiempo:** una imagen PNG por paciente, con una fila por etiqueta y los valores de cada nota en el tiempo.
 - **Registros:** registro_corridas.csv, con los conteos de cada corrida, y registro_versiones.csv, con la huella del modelo y las versiones usadas.
-
-El CSV y las gráficas traen texto de las notas: deben quedarse en el equipo o servidor donde se corre el pipeline.
 
 ## Contenido
 
